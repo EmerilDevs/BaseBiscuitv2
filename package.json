@@ -10,5 +10,9 @@
     "license": "MIT",
     "devDependencies": {
         "jsdoc": "^3.6.10"
+    },
+    "dependencies": {
+        "better-sqlite3": "^7.5.3",
+        "env": "^0.0.2"
     }
 }
