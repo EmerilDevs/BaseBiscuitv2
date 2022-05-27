@@ -1,9 +1,6 @@
 # node modules
 node_modules/
 
-# jsdoc config
-jsdoc.json
-
 # env
 .env
 
