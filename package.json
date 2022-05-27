@@ -1,0 +1,14 @@
+{
+    "name": "basebiscuitv2",
+    "version": "1.0.0",
+    "description": "A (newer) base to make making Discord bots easier.",
+    "main": "src/index.js",
+    "scripts": {
+        "doc": "jsdoc -c jsdoc.json"
+    },
+    "author": "George-801",
+    "license": "MIT",
+    "devDependencies": {
+        "jsdoc": "^3.6.10"
+    }
+}

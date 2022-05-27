@@ -6,3 +6,6 @@ jsdoc.json
 
 # env
 .env
+
+# docs for now
+docs/
