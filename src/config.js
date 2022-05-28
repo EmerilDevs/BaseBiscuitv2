@@ -7,9 +7,8 @@ const config = {
         "intents": [ Intents.FLAGS.GUILDS ]
     },
     "handlerSettings": {
-        "language": {
-            "useLocalisations": true,
-            "fallbackLanguage": "en"
+        "logging": {
+            "language": "en"
         }
     }
 }

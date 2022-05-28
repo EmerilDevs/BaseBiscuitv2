@@ -1,0 +1,18 @@
+--- META INFO ---
+# Language info
+meta.name=English
+meta.author=TechnoBiscuit
+
+--- LOGGING ---
+# Levels
+console.logging.debug=Debug
+console.logging.info=Info
+console.logging.warn=Warn
+console.logging.error=Error
+console.logging.critical=Critical
+# Messages
+console.logging.startMessage=Using locale '${0}' with translation provided by ${1}.
+console.logging.loggerSetup=Logger setup.
+
+--- ERRORS ---
+# 

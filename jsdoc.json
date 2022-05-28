@@ -1,6 +1,6 @@
 {
     "source": {
-        "include": ["src"],
+        "include": ["src", "package.json", "README.md"],
         "includePattern": ".js$",
         "excludePattern": "(node_modules/|docs)"
     },
@@ -8,14 +8,20 @@
         "plugins/markdown",
         "jsdoc-plugin-typescript"
     ],
-    "templates": {
-        "cleverLinks": true,
-        "monospaceLinks": true
-    },
     "opts": {
+        "encoding": "utf8",
         "recurse": true,
         "destination": "./docs/",
-        "readme": "README.md"
+        "readme": "./README.md",
+        "verbose": true,
+        "template": "./node_modules/clean-jsdoc-theme",
+        "theme_opts": {
+            "theme": "dark",
+            "favicon": "./icon.png",
+            "sections": [
+                "Classes"
+            ]
+        }
     },
     "typescript": {
         "moduleRoot": "src"

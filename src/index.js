@@ -7,10 +7,13 @@ const { Client } = require("discord.js");
 const client = new Client({ intents: require("./config").clientSettings.intents });
 // attach the full config file to the client
 client.config = require('./config');
+// load language handler
+client.languageHandler = require("./handlers/LanguageHandler");
+// shorthand stuff
+client.consoleLang = client.config.handlerSettings.logging.language;
+client.getText = client.languageHandler.getLocalisation;
 // load the logger
-client.logger = require("./handlers/LoggingHandler").createLogger();
-
-// if localisations are enabled, load language files
+client.logger = require("./handlers/LoggingHandler").createLogger(client);
 
 
 client.once("ready", () => {
