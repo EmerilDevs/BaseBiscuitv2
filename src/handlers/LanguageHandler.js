@@ -1,8 +1,8 @@
 'use strict';
 
 const { Collection } = require("discord.js");
-const { isAbsolute, normalize } = require("path");
-const { existsSync, statSync } = require("fs");
+const { isAbsolute, normalize, join, basename, extname } = require("path");
+const { existsSync, statSync, readdirSync, readFileSync } = require("fs");
 
 /**
  * @module handlers
@@ -27,12 +27,12 @@ const { existsSync, statSync } = require("fs");
  */
 class LanguageHandler {
     /**
-     * Array containing absolute paths to folders containing language files.
+     * Array containing absolute paths to language files.
      * @type {String[]}
      * @private
      * @static
      */
-    static #languageFolders = [];
+    static #languageFiles = [];
     /**
      * Collection containing all language data.
      * @type {Collection<String, Language>}
@@ -59,8 +59,41 @@ class LanguageHandler {
         if (!existsSync(normalize(languageFolder))) throw new Error("That path does not exist.");
         // check that the folder is indeed a folder
         if (!statSync(normalize(languageFolder)).isDirectory()) throw new Error("This function expects a folder path, not a file path.")
-        // add the path to the array or folder paths
-        LanguageHandler.#languageFolders.push(normalize(languageFolder));
+        // scan for language files
+        readdirSync(normalize(languageFolder)).forEach(name => {
+            // ignore folders
+            if (statSync(join(normalize(languageFolder), name)).isDirectory()) return;
+            // ignore other files
+            if (!/.lang$/g.test(name)) return;
+            // add the file to the list of language files
+            LanguageHandler.#languageFiles.push(join(normalize(languageFolder), name));
+        });
+    }
+
+    /**
+     * Clear any languages currently loaded and load all languages currently set to be used.
+     * @param {import("winston").Logger=} logger The logger being used (to report errors with language files).
+     * @static
+     * @example
+     * // Load all languages in src/lang
+     * 
+     * const { join } = require("path");
+     * 
+     * LanguageHandler.addLanguageFolder(join(__dirname, "src", "lang"));
+     * LanguageHandler.loadAllLanguages();
+     */
+    static loadAllLanguages(logger) {
+        // unload all language data
+        LanguageHandler.#languages = new Collection();
+        // load all languages
+        LanguageHandler.#languageFiles.forEach(path => {
+            try {
+                LanguageHandler.loadLanguageFile(path);
+            } catch (e) {
+                if (logger) logger.error(e);
+                else console.error(e);
+            }
+        });
     }
 
     /**
@@ -76,7 +109,44 @@ class LanguageHandler {
      */
     static loadLanguageFile(filepath) {
         // check if the path is absolute
-        if (!isAbsolute(normalize(filepath))) throw new Error("")
+        if (!isAbsolute(normalize(filepath))) throw new Error("Please provide an absolute path.");
+        // check the file exists
+        if (!existsSync(normalize(filepath))) throw new Error("That path does not exist.");
+        // check that the path isn't a directory
+        if (statSync(normalize(filepath)).isDirectory()) throw new Error("That path leads to a directory.");
+        // get file contents
+        let content = readFileSync(filepath, "utf-8");
+        let lines = content.split("\n");
+        // create the empty language object
+        let language = {};
+        lines.forEach(line => {
+            // ignore comments
+            if (line.indexOf("#") == 0 || line.indexOf("-") == 0) return;
+            // ensure the line has an entry
+            if (line.indexOf("=") == -1) return;
+            // get the identifier
+            let separated = line.split("=");
+            let identifier = separated.shift().trim();
+            // get the value
+            let value = separated.join("=");
+            // add characters such as \n and \t
+            value = value.replace(/(?<!\\)\\n/g, "\n").replace(/(?<!\\)\\t/g, "\t");
+            // remove \r cause it breaks stuff
+            value = value.replace(/\r/g, "");
+            // create entry in language object
+            let lastLevel = language;
+            // for each element of the identifier
+            identifier.split(".").forEach((x, i, a) => {
+                // if an element is undefined, create it
+                if (!lastLevel[x]) lastLevel[x] = {};
+                // if this is the last element, set it to the text
+                if (i == a.length - 1) lastLevel[x] = value;
+                // go a level deeper for the next element
+                lastLevel = lastLevel[x];
+            });
+        });
+        // add the language to the languages collection
+        LanguageHandler.#languages.set(basename(normalize(filepath), extname(normalize(filepath))), language);
     }
 
     /**
@@ -93,7 +163,7 @@ class LanguageHandler {
      */
     static getLocalisation(locale, path, ...replace) {
         // ensure locale is loaded
-        if (!LanguageHandler.#languages.get(locale)) throw new Error(`The locale '${locale} has not been loaded.'`);
+        if (!LanguageHandler.#languages.get(locale)) return path.join(".");
         // get the translation
         let nextElement = LanguageHandler.#languages.get(locale);
         path.forEach(x => nextElement = nextElement?.[x]);
@@ -102,7 +172,7 @@ class LanguageHandler {
         // check the found translation is actually a string
         if (!typeof(nextElement) == "string") throw new Error(`The translation of '${path.join(".")}' in locale '${locale} is not a string.'`);
         // replace elements in the translation
-        replace.forEach((x, i) => nextElement.replace(new RegExp(`\\\$\\\{${i}\\\}`, "g"), x));
+        replace.forEach((x, i) => nextElement = nextElement.replace(new RegExp(`\\\$\\\{${i}\\\}`, "g"), x));
         // return the final result
         return nextElement;
     }

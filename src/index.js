@@ -3,21 +3,32 @@
 require("dotenv").config();
 
 const { Client } = require("discord.js");
-// create the discord client using intents from the config file
+const { join } = require("path");
+
 const client = new Client({ intents: require("./config").clientSettings.intents });
 // attach the full config file to the client
 client.config = require('./config');
-// load language handler
-client.languageHandler = require("./handlers/LanguageHandler");
+
+client.languageHandler = require("./handlers/LanguageHandler");     // load language handler
+client.languageHandler.addLanguageFolder(join(__dirname, "lang"));  // set language location
+client.languageHandler.loadAllLanguages();                          // load all languages
+
 // shorthand stuff
 client.consoleLang = client.config.handlerSettings.logging.language;
 client.getText = client.languageHandler.getLocalisation;
-// load the logger
-client.logger = require("./handlers/LoggingHandler").createLogger(client);
 
+client.logger = require("./handlers/LoggingHandler").createLogger(client);  // load the logger
 
 client.once("ready", () => {
     client.logger.debug("Ready!");
 });
 
-client.login(process.env.TOKEN)
+process.on("uncaughtException", e => {
+    try {
+        client.logger.error(e);
+    } catch {
+        console.error(e);
+    }
+});
+
+client.login(process.env.TOKEN);
