@@ -5,10 +5,6 @@ const { format } = winston;
 const { format: prettyFormat } = require("pretty-format");
 
 /**
- * @module handlers
- */
-
-/**
  * Class that handles logging related tasks.
  */
 class LoggingHandler {
@@ -59,7 +55,7 @@ class LoggingHandler {
                 format.errors({
                     stack: true
                 }),
-                format.printf(msg => `[${client.getText(client.consoleLang, ["console", "logging", msg.level.toLowerCase()]).toUpperCase()}] ${msg.timestamp}\t» ${typeof msg.message == "string" ? msg.message.replace(new RegExp(require("os").userInfo().username, "g"), "X") : "\n" + prettyFormat(msg.message).replace(new RegExp(require("os").userInfo().username, "g"), "X")}${msg.stack ? `\n${msg.stack.replace(new RegExp(require("os").userInfo().username, "g"), "X")}` : ""}`)
+                format.printf(msg => `[${client.getText(client.consoleLang, ["console", "logging", msg.level.toLowerCase()])}] ${msg.timestamp}\t» ${typeof msg.message == "string" ? msg.message.replace(new RegExp(require("os").userInfo().username, "g"), "X") : "\n" + prettyFormat(msg.message).replace(new RegExp(require("os").userInfo().username, "g"), "X")}${msg.stack ? `\n${msg.stack.replace(new RegExp(require("os").userInfo().username, "g"), "X")}` : ""}`)
             )
         });
         // setup colours
@@ -75,7 +71,7 @@ class LoggingHandler {
             logger.critical(`Uncaught exception:\n${e.stack}`);
         });
 
-        logger.info(client.getText(client.consoleLang, ["console", "logging", "startMessage"], client.getText(client.consoleLang, ["meta", "name"]), client.getText(client.consoleLang, ["meta", "author"])));
+        logger.debug(client.getText(client.consoleLang, ["console", "logging", "startMessage"], client.getText(client.consoleLang, ["meta", "name"]), client.getText(client.consoleLang, ["meta", "author"])));
 
         logger.info(client.getText(client.consoleLang, ["console", "logging", "loggerSetup"]));
 

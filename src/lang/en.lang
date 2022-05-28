@@ -3,16 +3,27 @@
 meta.name=English
 meta.author=TechnoBiscuit
 
---- LOGGING ---
-# Levels
+--- CONSOLE ---
+# Logging levels
+console.logging.critical=Critical
 console.logging.debug=Debug
+console.logging.error=Error
 console.logging.info=Info
 console.logging.warn=Warn
-console.logging.error=Error
-console.logging.critical=Critical
 # Messages
-console.logging.startMessage=Using locale '${0}' with translation provided by ${1}.
 console.logging.loggerSetup=Logger setup.
+console.logging.startMessage=Using locale '${0}' with translation provided by ${1}.
 
---- ERRORS ---
-# 
+--- COMMAND HANDLER ---
+# Debug messages
+handlers.command.debug.addDirAttempt=Attempting to add command directory: ${0}
+handlers.command.debug.addedDir=Added command directory: ${0}
+handlers.command.debug.removeDirAttempt=Attempting to remove command directory: ${0}
+handlers.command.debug.removedDir=Removed command directory: ${0}
+
+--- GENERIC MESSAGES ---
+# Errors
+generic.errors.directory.invalid='${0}' is not a directory.
+generic.errors.path.doesNotExist='${0}' does not exist.
+generic.errors.path.notAbsolute='${0}' is not an absolute path.
+generic.errors.noClient=No client attached.

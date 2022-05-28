@@ -5,10 +5,6 @@ const { isAbsolute, normalize, join, basename, extname } = require("path");
 const { existsSync, statSync, readdirSync, readFileSync } = require("fs");
 
 /**
- * @module handlers
- */
-
-/**
  * @typedef {Object} Language A set of language data.
  * @property {ISOLangCode} id The language's ISO 639-1 code.
  * @property {Object} data All translations.
@@ -40,6 +36,14 @@ class LanguageHandler {
      * @static
      */
     static #languages = new Collection();
+
+    /**
+     * ISO Language Code of the language to default to in cases in 
+     * which the correct language to use cannot be determined.
+     * @type {ISOLangCode}
+     * @static
+     */
+    static defaultLanguage = "";
     
     /**
      * Add a folder to scan for language files when language files are loaded.
@@ -153,7 +157,7 @@ class LanguageHandler {
      * Get localised text.
      * @param {ISOLangCode} locale The ISO language code of the locale to use.
      * @param {String[]} path An array containing the path to the localisation.
-     * @param  {...String} replace Items to place within the localised text.
+     * @param  {...String=} replace Items to place within the localised text.
      * @returns {String} The localised text.
      * @static
      * @example
@@ -162,6 +166,8 @@ class LanguageHandler {
      * let name = LanguageHandler.getLocalisation("en", ["console", "logging", "debug"]);
      */
     static getLocalisation(locale, path, ...replace) {
+        // if no locale provided use the default
+        if (!locale) locale = LanguageHandler.defaultLanguage;
         // ensure locale is loaded
         if (!LanguageHandler.#languages.get(locale)) return path.join(".");
         // get the translation

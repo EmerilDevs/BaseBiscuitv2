@@ -1,0 +1,15 @@
+--- META INFO ---
+# Language info
+meta.name=ɥsᴉlƃuƎ uʍop ǝpᴉsd∩
+meta.author=TechnoBiscuit
+
+--- LOGGING ---
+# Levels
+console.logging.debug=ƃnqǝp
+console.logging.info=oɟuI
+console.logging.warn=uɹɐM
+console.logging.error=ɹoɹɹƎ
+console.logging.critical=lɐɔᴉʇᴉɹƆ
+# Messages
+console.logging.startMessage=˙${1} ʎq pǝpᴉʌoɹd uoᴉʇɐlsuɐɹʇ ɥʇᴉʍ ,${0}, ǝlɐɔol ƃuᴉs∩
+console.logging.loggerSetup=˙dnʇǝs ɹǝƃƃo˥
