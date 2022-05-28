@@ -2,7 +2,7 @@
     "source": {
         "include": ["src", "package.json", "README.md"],
         "includePattern": ".js$",
-        "excludePattern": "(node_modules/|docs)"
+        "excludePattern": "(node_modules/|docs/|src/commands/)"
     },
     "plugins": [
         "plugins/markdown",
@@ -17,10 +17,7 @@
         "template": "./node_modules/clean-jsdoc-theme",
         "theme_opts": {
             "theme": "dark",
-            "favicon": "https://george-801.github.io/webstuff/lgRed.png",
-            "sections": [
-                "Classes"
-            ]
+            "favicon": "https://george-801.github.io/webstuff/lgRed.png"
         }
     },
     "typescript": {

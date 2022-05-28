@@ -9,6 +9,14 @@ const { format: prettyFormat } = require("pretty-format");
  */
 class LoggingHandler {
     /**
+     * Reference to a Winston logger
+     * @type {import("winston").Logger}
+     * @static
+     * @private
+     */
+    static #logger;
+
+    /**
      * Create, set up and return a Winston Logger.
      * @param {import("discord.js").Client} client The Discord client the Logger will be attached to.
      * @returns {import("winston").Logger} The created Logger.
@@ -75,8 +83,35 @@ class LoggingHandler {
 
         logger.info(client.getText(client.consoleLang, ["console", "logging", "loggerSetup"]));
 
+        LoggingHandler.#logger = logger;
         return logger;
     }
+
+    /**
+     * Log at debug level.
+     * @param {String|Object} x The content to log.
+     */
+    static debug = x => LoggingHandler.#logger.debug(x);
+    /**
+     * Log at info level.
+     * @param {String|Object} x The content to log.
+     */
+    static info = x => LoggingHandler.#logger.info(x);
+    /**
+     * Log at warn level.
+     * @param {String|Object} x The content to log.
+     */
+    static warn = x => LoggingHandler.#logger.warn(x);
+    /**
+     * Log at error level.
+     * @param {String|Object} x The content to log.
+     */
+    static error = x => LoggingHandler.#logger.error(x);
+    /**
+     * Log at critical level.
+     * @param {String|Object} x The content to log.
+     */
+    static critical = x => LoggingHandler.#logger.critical(x);
 }
 
 module.exports = LoggingHandler

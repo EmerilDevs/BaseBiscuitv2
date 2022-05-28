@@ -24,6 +24,7 @@ client.logger = require("./handlers/LoggingHandler").createLogger(client);  // l
 client.commandHandler = require("./handlers/CommandHandler");
 client.commandHandler.attachClient(client);                              // attach the client
 client.commandHandler.addCommandDirectory(join(__dirname, "commands"));  // set the command file location
+client.commandHandler.loadCommands();  // load commands
 
 client.once("ready", () => {
     client.logger.debug("Ready!");
