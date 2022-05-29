@@ -2,6 +2,22 @@
 
 require("dotenv").config();
 
+// console interface
+const readline = require('readline');
+var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    terminal: false
+});
+rl.on('line', async line => { 
+    try {
+        let eresult = eval(line);
+        console.log(eresult);
+    } catch(err) {
+        console.error(err)
+    }
+});
+
 const { Client } = require("discord.js");
 const { join } = require("path");
 

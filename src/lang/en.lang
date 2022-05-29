@@ -1,7 +1,9 @@
 --- META INFO ---
 # Language info
-meta.name=English
+meta.name=English, UK
 meta.author=TechnoBiscuit
+# Locale to identify as when communicating with the Discord API. (see https://discord.com/developers/docs/interactions/application-commands#localization for more information)
+meta.apiLocale=en-GB
 
 --- CONSOLE ---
 # Logging levels
@@ -15,11 +17,13 @@ console.logging.loggerSetup=Logger setup.
 console.logging.startMessage=Using locale '${0}' with translation provided by ${1}.
 
 --- COMMAND HANDLER ---
-# Debug messages
 handlers.command.debug.addDirAttempt=Attempting to add command directory: ${0}
 handlers.command.debug.addedDir=Added command directory: ${0}
-handlers.command.debug.loadedSubcommand=Loaded subcommand /${0} ${1}
-handlers.command.debug.loadedTopLevelCommand=Loaded top level /${0}
+handlers.command.debug.loadedGroupDefinition=Loaded subcommand group definition\t/${0} ${1}
+handlers.command.debug.loadedGroupedCommand=Loaded grouped subcommand\t\t/${0} ${1} ${2}
+handlers.command.debug.loadedSubcommand=Loaded subcommand\t\t\t/${0} ${1}
+handlers.command.debug.loadedTopLevelCommand=Loaded top level\t\t\t/${0}
+handlers.command.debug.loadedTopLevelCommandGuild=Loaded top level\t\t\t/${0} (${1})
 handlers.command.debug.loadingCommands=Loading commands...
 handlers.command.debug.loadingFolderGlobal=Loading global commands.
 handlers.command.debug.loadingFolderGlobalAndGuild=Loading global and guild specific commands.
@@ -30,11 +34,15 @@ handlers.command.debug.removeDirAttempt=Attempting to remove command directory: 
 handlers.command.debug.removedDir=Removed command directory: ${0}
 handlers.command.error.cannotLoad=Error while loading ${0}:\n${1}
 handlers.command.info.loadedCommands=Loaded commands!
+handlers.command.warn.cannotFindGroup=${0}'s specified group (${1}) could not be found, and so will be ignored.
 handlers.command.warn.folderIdentityCrisis=${0} is not a directory, and so ${1} will be ignored.
+handlers.command.warn.invalidRole=/${0} ${1} has an invalid role (${2}), and so will not be included in the command structure.
 handlers.command.warn.noExecute=${0} has no execute yet does not have a subcommand folder, and so will be ignored.
 handlers.command.warn.noName=${0} does not have a name property, and so will be ignored.
 handlers.command.warn.noSubcommands=${0} has no execute yet does not have any subcommands, and so will be ignored.
 handlers.command.warn.overlappingDirectories=Some command paths contain each other, and so some commands may be loaded more than once.
+--- EVENT HANDLER ---
+# handlers.event
 
 --- GENERIC MESSAGES ---
 # Errors
@@ -42,3 +50,11 @@ generic.errors.directory.invalid='${0}' is not a directory.
 generic.errors.path.doesNotExist='${0}' does not exist.
 generic.errors.path.notAbsolute='${0}' is not an absolute path.
 generic.errors.noClient=No client attached.
+
+--- COMMANDS ---
+commands.global.test.name=test but localised
+commands.global.test.description=woo localised description
+commands.options.global.test.defaults.name=localisedtestname
+commands.options.global.test.defaults.description=localised test description
+
+commands.guild.specific.name=specific but localised

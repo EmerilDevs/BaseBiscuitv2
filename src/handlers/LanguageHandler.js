@@ -182,6 +182,75 @@ class LanguageHandler {
         // return the final result
         return nextElement;
     }
+
+    /**
+     * Get the localisations of a command to provide to the Discord API.
+     * @param {import("../types").Command} command The command to retrieve localisations for.
+     * @returns {import("../types").CommandLocalisationObject} The command's localisations.
+     * @static
+     */
+    static getCommandLocalisations(command) {
+        /** @type {import("../types").CommandLocalisationObject} */
+        let localisations = {
+            name: {},
+            description: {}
+        }
+        // for each language
+        for (const locale of [...LanguageHandler.#languages.keys()]) {
+            // test for an api locale
+            if (!LanguageHandler.#languages.get(locale).meta?.apiLocale) continue;
+            // attempt to find the localised name
+            if (LanguageHandler.#languages.get(locale).commands?.[command.guild ? "guild" : "global"]?.[command.name]?.name) {
+                // set the localised name
+                localisations.name[LanguageHandler.#languages.get(locale).meta.apiLocale] = LanguageHandler.#languages.get(locale).commands[command.guild ? "guild" : "global"][command.name].name;
+            }
+            // attempt to find the localised description
+            if (LanguageHandler.#languages.get(locale).commands?.[command.guild ? "guild" : "global"]?.[command.name]?.description) {
+                // set the localised description
+                localisations.description[LanguageHandler.#languages.get(locale).meta.apiLocale] = LanguageHandler.#languages.get(locale).commands[command.guild ? "guild" : "global"][command.name].description;
+            }
+        }
+
+        return localisations;
+    }
+
+    /**
+     * Get the localistions of options of a command to provide to the Discord API.
+     * @param {import("../types").Command} command The command to retrieve localisations for.
+     * @returns {import("../types").CommandOptionLocalisationObject} The command's localisations.
+     * @static
+     */
+    static getCommandOptionLocalisations(command) {
+        /** @type {import("../types").CommandOptionLocalisationObject} */
+        let localisations = {};
+        // for each language
+        for (const locale of [...LanguageHandler.#languages.keys()]) {
+            // test for an api locale
+            if (!LanguageHandler.#languages.get(locale).meta?.apiLocale) continue;
+            // for each option
+            for (const option of command.options) {
+                /** @type {import("../types").CommandLocalisationObject} */
+                let localisation = {
+                    name: {},
+                    description: {}
+                }
+                // try to find the localised name
+                if (LanguageHandler.#languages.get(locale).commands?.options?.[command.guild ? "guild" : "global"]?.[command.name]?.[option.name]?.name) {
+                    // set the localised name
+                    localisation.name[LanguageHandler.#languages.get(locale).meta.apiLocale] = LanguageHandler.#languages.get(locale).commands.options[command.guild ? "guild" : "global"][command.name][option.name].name
+                }
+                // try to find the localised description
+                if (LanguageHandler.#languages.get(locale).commands?.options?.[command.guild ? "guild" : "global"]?.[command.name]?.[option.name]?.description) {
+                    // set the localised description
+                    localisation.description[LanguageHandler.#languages.get(locale).meta.apiLocale] = LanguageHandler.#languages.get(locale).commands.options[command.guild ? "guild" : "global"][command.name][option.name].description
+                }
+                // add to the full object
+                localisations[option.name] = localisation;
+            }
+        }
+        // return the full object
+        return localisations;
+    }
 }
 
 module.exports = LanguageHandler;

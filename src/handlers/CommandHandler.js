@@ -1,11 +1,12 @@
 'use strict';
 
 const { Collection } = require("discord.js");
-const { getLocalisation: getText } = require("./LanguageHandler")
-const { isAbsolute, normalize, resolve, extname, dirname } = require("path");
+const { SlashCommandBuilder, SlashCommandSubcommandGroupBuilder, SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+const { getLocalisation: getText, getCommandLocalisations, getCommandOptionLocalisations } = require("./LanguageHandler")
+const { isAbsolute, normalize, resolve, extname, dirname, basename } = require("path");
 const { existsSync, statSync, readdirSync } = require("fs");
 const { debug, warn, error, info } = require("./LoggingHandler");
-const { CommandTypes, CommandRoles } = require("../types");
+const { CommandTypes, CommandRoles, CommandOptionTypes } = require("../types");
 const { v4: uuidv4 } = require("uuid");
 
 /**
@@ -228,7 +229,7 @@ class CommandHandler {
                             command.id = uuidv4();
                             // add to commands to register
                             toRegister.push(command);
-                            debug(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "debug", "loadedTopLevelCommand"], command.name));
+                            debug(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "debug", "loadedTopLevelCommandGuild"], command.name, command.guild));
                         } catch (e) {
                             error(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "error", "cannotLoad"], commandPath, e.stack));
                         }
@@ -236,7 +237,8 @@ class CommandHandler {
                 }
             }
             // subcommand finding time woo
-            for (const command of toRegister) {
+            let commandsToSearch = [...toRegister];
+            for (const command of commandsToSearch) {
                 // check for subcommand folder
                 let subcommandDir = resolve(dirname(command.filePath), command.name);
                 // if no subcommand folder
@@ -265,6 +267,102 @@ class CommandHandler {
                     toRegister = toRegister.filter(x => x.id != command.id);
                     continue;
                 }
+                // subcommand groups are a thing but no one really cares about them
+                if (subcommandFilePaths.some(x => /^group\./g.test(basename(x)))) {
+                    // oh ok nvm someone cares about them
+                    let groupDefininitionPaths = subcommandFilePaths.filter(x => /^group\./g.test(basename(x)));
+                    // for each definition
+                    for (const groupPath of groupDefininitionPaths) {
+                        try {
+                            // delete cached files
+                            delete require.cache[require.resolve(groupPath)];
+                            // import the group thing
+                            /** @type {import("../types").Command} */
+                            const groupDefinition = require(groupPath);
+                            // ignore if no name
+                            if (!groupDefinition.name) {
+                                warn(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "warn", "noName"], groupPath));
+                                continue;
+                            }
+                            // check for description
+                            if (!groupDefinition.description) groupDefinition.description = "No description set.";
+                            // link file path
+                            groupDefinition.filePath = groupPath;
+                            // assign a unique id
+                            groupDefinition.id = uuidv4();
+                            // set the role
+                            groupDefinition.role = CommandRoles.SUBCOMMAND_CONTAINER;
+                            // parent-child stuff
+                            groupDefinition.parent = command.id;
+                            if (!command.chilren) command.children = [];
+                            command.children.push(groupDefinition.id);
+                            // add to register list
+                            toRegister.push(groupDefinition);
+                            debug(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "debug", "loadedGroupDefinition"], command.name, groupDefinition.name));
+                        } catch (e) {
+                            error(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "error", "cannotLoad"], groupPath, e.stack));
+                        }
+                    }
+                }
+
+                // remove any subcommand group definitions from the list of subcommands
+                subcommandFilePaths = subcommandFilePaths.filter(x => !/^group\./g.test(basename(x)));
+                // test for paths with the 3 dot thing grouped subcommands need
+                if (subcommandFilePaths.some(x => /(?<!^group)\.[^.]+\.[^.]+/g.test(basename(x)))) {
+                    let groupedSubcommandFilePaths = subcommandFilePaths.filter(x => /(?<!^group)\.[^.]+\.[^.]+/g.test(basename(x)));
+                    for (const groupedSubcommandPath of groupedSubcommandFilePaths) {
+                        // get subcommand group name
+                        let group = basename(groupedSubcommandPath).split(".")[0];
+                        // ensure the group exists
+                        if (!toRegister.find(x => x.role == CommandRoles.SUBCOMMAND_CONTAINER && x.name == group)) {
+                            warn(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "warn", "cannotFindGroup"], groupedSubcommandPath, group));
+                            continue;
+                        }
+                        // right then actually load the thing
+                        try {
+                            // delete cached files
+                            delete require.cache[require.resolve(groupedSubcommandPath)];
+                            // importtttttttttttt
+                            /** @type {import("../types").Command} */
+                            const groupedSubcommand = require(groupedSubcommandPath);
+                            // check for name
+                            if (!groupedSubcommand.name)  {
+                                warn(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "warn", "noName"], groupedSubcommandPath));
+                                continue;
+                            }
+                            // set the command's role (for subcommand structure)
+                            groupedSubcommand.role = CommandRoles.SUBCOMMAND;
+                            // set description
+                            if (!groupedSubcommand.description) groupedSubcommand.description = "No description set.";
+                            // perms stuff
+                            if (!groupedSubcommand.botPerms) groupedSubcommand.botPerms = [];
+                            if (!groupedSubcommand.userPerms) groupedSubcommand.userPerms = [];
+                            // check for options
+                            if (!groupedSubcommand.options) groupedSubcommand.options = [];
+                            // file path
+                            groupedSubcommand.filePath = groupedSubcommandPath;
+                            // unique id (for structure calculation later)
+                            groupedSubcommand.id = uuidv4();
+
+                            // parent-child stuff
+                            /** @type {import("../types").Command} */
+                            let parent = toRegister.find(x => x.role == CommandRoles.SUBCOMMAND_CONTAINER && x.name == group);
+                            groupedSubcommand.parent == parent.id;
+                            if (!parent.children) parent.children = [];
+                            parent.children.push(groupedSubcommand.id);
+
+                            // add to register list
+                            toRegister.push(groupedSubcommand);
+                            debug(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "debug", "loadedGroupedCommand"], command.name, parent.name, groupedSubcommand.name));
+                        } catch (e) {
+                            error(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "error", "cannotLoad"], groupedSubcommandPath, e.stack));
+                        }
+                    }
+                }
+
+                // remove grouped commands from the list of subcommands
+                subcommandFilePaths = subcommandFilePaths.filter(x => !/(?<!^group)\.[^.]+\.[^.]+/g.test(basename(x)));
+
                 // anyway load the subcommands
                 for (const subcommandPath of subcommandFilePaths) {
                     try {
@@ -309,9 +407,184 @@ class CommandHandler {
         }
         info(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "info", "loadedCommands"]));
 
-        console.log(CommandHandler.commands);
-
         return CommandHandler;
+    }
+
+    /**
+     * Generate the command structure in order to register commands with Discord.
+     * @param {import("discord.js").Snowflake=} guildID The ID of the guild to generate a structure for.
+     * @returns {import("discord-api-types").RESTPostAPISpplicationCommandsJSONBody[]} The structure.
+     * @static
+     */
+    static generateStructure(guildID) {
+        // if no client attached
+        if (!CommandHandler.#client) throw new Error(getText(undefined, ["generic", "errors", "noClient"]));
+
+        // get commands to generate structure for
+        let commandsToUse = guildID ? CommandHandler.commands.filter(x => x.guild == guildID) : CommandHandler.commands.filter(x => !x.guild);
+        // return if no commands to generate structure for
+        if (!commandsToUse.size) return [];
+        // output array
+        let structure = [];
+        // get top level commands
+        let topLevel = commandsToUse.filter(x => x.role == CommandRoles.COMMAND || x.role == CommandRoles.CONTAINER);
+        // generate each command
+        topLevel.forEach(command => {
+            // set basic command info
+            let toPush = new SlashCommandBuilder()
+                .setName(command.name)
+                .setDescription(command.name)
+                .setNameLocalizations(getCommandLocalisations(command).name)
+                .setDescriptionLocalizations(getCommandLocalisations(command).description);
+            // set options
+            if (command.options?.length) {
+                // for each option
+                command.options.forEach(option => {
+                    // determine the option type + the function to use
+                    switch (option.type) {
+                        case CommandOptionTypes.STRING:
+                        case CommandOptionTypes.INTEGER:
+                        case CommandOptionTypes.NUMBER:
+                            toPush[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
+                                // actually add the option
+                                x => {
+                                    x.setName(option.name)
+                                    .setDescription(option.description)
+                                    .setRequired(option.required)
+                                    .setNameLocalizations(getCommandOptionLocalisations(command)[option.name]?.name || {})
+                                    .setDescriptionLocalizations(getCommandOptionLocalisations(command)[option.name]?.description || {});
+                                    if (option.choices?.length) x.setChoices(...option.choices);
+                                    return x;
+                                }
+                            );
+                            break;
+                        default:
+                            toPush[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
+                                // actually add the option
+                                x => x.setName(option.name).setDescription(option.description).setRequired(option.required)
+                            );
+                    }
+                });
+            }
+            // deal with children
+            if (command.children?.length) {
+                for (const childID of command.children) {
+                    // find the child object
+                    let child = CommandHandler.commands.find(x => x.id == childID);
+                    // ignore if there is no child
+                    if (!child) continue;
+                    // else determine type
+                    switch (child.role) {
+                        case CommandRoles.SUBCOMMAND: // (normal subcommand)
+                            // set basic command info
+                            let subcommand = new SlashCommandSubcommandBuilder()
+                                .setName(child.name)
+                                .setDescription(child.description)
+                                .setNameLocalizations(getCommandLocalisations(child).name)
+                                .setDescriptionLocalizations(getCommandLocalisations(child).description);
+                            // set options
+                            if (child.options?.length) {
+                                // for each option
+                                child.options.forEach(option => {
+                                    // determine the option type + the function to use
+                                    switch (option.type) {
+                                        case CommandOptionTypes.STRING:
+                                        case CommandOptionTypes.INTEGER:
+                                        case CommandOptionTypes.NUMBER:
+                                            subcommand[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
+                                                // actually add the option
+                                                x => {
+                                                    x.setName(option.name)
+                                                    .setDescription(option.description)
+                                                    .setRequired(option.required)
+                                                    .setNameLocalizations(getCommandOptionLocalisations(child)[option.name]?.name || {})
+                                                    .setDescriptionLocalizations(getCommandOptionLocalisations(child)[option.name]?.description || {});
+                                                    if (option.choices?.length) x.setChoices(...option.choices);
+                                                    return x;
+                                                }
+                                            );
+                                            break;
+                                        default:
+                                            subcommand[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
+                                                // actually add the option
+                                                x => x.setName(option.name).setDescription(option.description).setRequired(option.required)
+                                            );
+                                    }
+                                });
+                            }
+                            // add the subcommand to the command
+                            toPush.addSubcommand(subcommand);
+                            break;
+                        case CommandRoles.SUBCOMMAND_CONTAINER: // (subcommand group def)
+                            // set basic info
+                            let subcommandGroup = new SlashCommandSubcommandGroupBuilder()
+                                .setName(child.name)
+                                .setDescription(child.description)
+                                .setNameLocalizations(getCommandLocalisations(child).name)
+                                .setDescriptionLocalizations(getCommandLocalisations(child).description);
+                            // ignore if empty group
+                            if (!child.children?.length) continue;
+                            for (const childChildID of child.children) {
+                                // get the child child
+                                let childChild = CommandHandler.commands.find(x => x.id == childChildID);
+                                // ignore if child child does not exist
+                                if (!childChild) continue;
+                                // set basic command info
+                                let subcommand = new SlashCommandSubcommandBuilder()
+                                    .setName(childChild.name)
+                                    .setDescription(childChild.description)
+                                    .setNameLocalizations(getCommandLocalisations(childChild).name)
+                                    .setDescriptionLocalizations(getCommandLocalisations(childChild).description);
+                                // set options
+                                if (childChild.options?.length) {
+                                    // for each option
+                                    childChild.options.forEach(option => {
+                                        // determine the option type + the function to use
+                                    switch (option.type) {
+                                        case CommandOptionTypes.STRING:
+                                        case CommandOptionTypes.INTEGER:
+                                        case CommandOptionTypes.NUMBER:
+                                            subcommand[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
+                                                // actually add the option
+                                                x => {
+                                                    x.setName(option.name)
+                                                    .setDescription(option.description)
+                                                    .setRequired(option.required)
+                                                    .setNameLocalizations(getCommandOptionLocalisations(childChild)[option.name]?.name || {})
+                                                    .setDescriptionLocalizations(getCommandOptionLocalisations(childChild)[option.name]?.description || {});
+                                                    if (option.choices?.length) x.setChoices(...option.choices);
+                                                    return x;
+                                                }
+                                            );
+                                            break;
+                                        default:
+                                            subcommand[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
+                                                // actually add the option
+                                                x => x.setName(option.name).setDescription(option.description).setRequired(option.required)
+                                            );
+                                    }
+                                    });
+                                }
+                                // add to subcommand group
+                                subcommandGroup.addSubcommand(subcommand);
+                            }
+                            // add subcommand group to command
+                            toPush.addSubcommandGroup(subcommandGroup);
+                            break;
+                        default:
+                            warn(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "warn", "invalidRole"], command.name, child.name, child.role));
+                            continue;
+                    }
+                }
+            }
+            // push command to structure
+            structure.push(toPush);
+        });
+
+        // convert structure to JSON
+        structure = structure.map(x => x.toJSON());
+
+        return structure;
     }
 }
 

@@ -1,8 +1,8 @@
 {
     "source": {
         "include": ["src", "package.json", "README.md"],
-        "includePattern": ".js$",
-        "excludePattern": "(node_modules/|docs/|src/commands/)"
+        "exclude": ["node_modules/", "docs/", "src/commands/"],
+        "includePattern": ".js$"
     },
     "plugins": [
         "plugins/markdown",
