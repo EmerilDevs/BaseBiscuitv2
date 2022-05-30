@@ -133,8 +133,8 @@ class LanguageHandler {
             let identifier = separated.shift().trim();
             // get the value
             let value = separated.join("=");
-            // add characters such as \n and \t
-            value = value.replace(/(?<!\\)\\n/g, "\n").replace(/(?<!\\)\\t/g, "\t");
+            // add characters such as \n, \t, \# and \\
+            value = value.replace(/(?<!\\)\\n/g, "\n").replace(/(?<!\\)\\t/g, "\t").replace(/(?<!\\)\\#/g, "#").replace(/\\\\/g, "\\");
             // remove \r cause it breaks stuff
             value = value.replace(/\r/g, "");
             // create entry in language object

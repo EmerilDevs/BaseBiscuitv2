@@ -1,7 +1,5 @@
 'use strict';
 
-const { Interaction } = require("discord.js");
-
 /**
  * @typedef {0|1} CommandType
  */
@@ -68,7 +66,7 @@ const CommandOptionTypes = {
 
 /**
  * @typedef {Function} CommandExecute
- * @param {Interaction} interaction
+ * @param {import("discord.js").Interaction} interaction
  */
 
 /**
@@ -95,6 +93,26 @@ const CommandOptionTypes = {
 
 /**
  * @typedef {Object.<import("discord-api-types/v10").Locale, CommandLocalisationObject>} CommandOptionLocalisationObject
+ */
+
+/**
+ * @typedef {Object} EventDebounceSettingsObject
+ * @property {Number} time
+ * @property {Boolean} [risingEdge=false]
+ */
+
+/**
+ * @typedef {Object} EventSettingsObject
+ * @property {EventDebounceSettingsObject} debounce
+ */
+
+/**
+ * @typedef {Object} Event
+ * @property {String} [name]
+ * @property {String} event
+ * @property {EventSettingsObject} settings
+ * @property {Function} execute
+ * @property {String} filePath
  */
 
 module.exports = {

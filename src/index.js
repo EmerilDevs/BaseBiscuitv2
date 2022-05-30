@@ -24,6 +24,8 @@ const { join } = require("path");
 const client = new Client({ intents: require("./config").clientSettings.intents });
 // attach the full config file to the client
 client.config = require('./config');
+// attach the package to the client
+client.pkg = require("../package.json");
 
 client.languageHandler = require("./handlers/LanguageHandler");     // load language handler
 client.languageHandler.addLanguageFolder(join(__dirname, "lang"));  // set language location
@@ -42,9 +44,11 @@ client.commandHandler.attachClient(client);                              // atta
 client.commandHandler.addCommandDirectory(join(__dirname, "commands"));  // set the command file location
 client.commandHandler.loadCommands();  // load commands
 
-client.once("ready", () => {
-    client.logger.debug("Ready!");
-});
+// load the event handler
+client.eventHandler = require("./handlers/EventHandler");
+client.eventHandler.attachClient(client);                          // attach the client
+client.eventHandler.addEventDirectory(join(__dirname, "events"));  // set the event file location
+client.eventHandler.loadEvents();  // load events
 
 process.on("uncaughtException", e => {
     try {

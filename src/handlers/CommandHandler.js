@@ -413,7 +413,7 @@ class CommandHandler {
     /**
      * Generate the command structure in order to register commands with Discord.
      * @param {import("discord.js").Snowflake=} guildID The ID of the guild to generate a structure for.
-     * @returns {import("discord-api-types").RESTPostAPISpplicationCommandsJSONBody[]} The structure.
+     * @returns {import("discord-api-types/v10").RESTPostAPIApplicationCommandsJSONBody} The structure.
      * @static
      */
     static generateStructure(guildID) {
