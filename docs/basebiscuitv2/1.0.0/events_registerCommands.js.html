@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Adding favicon -->
+    
+    <link rel="icon" href="https://george-801.github.io/webstuff/lgRed.png" />
+    
+
+    <!-- Adding meta -->
+    
+
+    <!-- Adding external script-->
+    
+
+    <!-- Adding external style-->
+    
+
+    <!-- Adding scripts-->
+    
+
+    <!-- Adding style-->
+    
+
+    <!-- Adding overlay script-->
+    
+
+    <!-- Adding overlay style-->
+    
+
+
+    <title>
+      events/registerCommands.js
+    </title>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/third-party/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/third-party/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/reset.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-base.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-dark.css">
+    
+    <svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path
+                    d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z" />
+                <path
+                    d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z" />
+            </g>
+        </symbol>
+        <symbol id='search-icon' viewBox="0 0 512 512">
+            <g>
+                <g>
+                    <path
+                        d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z" />
+                </g>
+            </g>
+        </symbol>
+        <symbol id="down-icon" viewBox="0 0 16 16">
+            <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"
+            >
+            </path>
+        </symbol>
+    </defs>
+</svg>
+  </head>
+
+  <body>
+
+    <nav class="navbar" id="navbar">
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><div class="accordion collapsed" id="1871787" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion collapsed child" id=7946589><div class="accordion-heading child"><a href="CommandHandler.html">CommandHandler</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="CommandHandler.html#.addCommandDirectory">addCommandDirectory</a></li><li data-type='method'><a href="CommandHandler.html#.attachClient">attachClient</a></li><li data-type='method'><a href="CommandHandler.html#.generateStructure">generateStructure</a></li><li data-type='method'><a href="CommandHandler.html#.getCommand">getCommand</a></li><li data-type='method'><a href="CommandHandler.html#.getGuildCommand">getGuildCommand</a></li><li data-type='method'><a href="CommandHandler.html#.loadCommands">loadCommands</a></li><li data-type='method'><a href="CommandHandler.html#.removeCommandDirectory">removeCommandDirectory</a></li></ul></li><li class="accordion collapsed child" id=2802624><div class="accordion-heading child"><a href="DatabaseHandler.html">DatabaseHandler</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="DatabaseHandler.html#.init">init</a></li><li data-type='method'><a href="DatabaseHandler.html#.operation">operation</a></li></ul></li><li class="accordion collapsed child" id=9593635><div class="accordion-heading child"><a href="EventHandler.html">EventHandler</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="EventHandler.html#.addEventDirectory">addEventDirectory</a></li><li data-type='method'><a href="EventHandler.html#.attachClient">attachClient</a></li><li data-type='method'><a href="EventHandler.html#.loadEvents">loadEvents</a></li><li data-type='method'><a href="EventHandler.html#.removeEventDirectory">removeEventDirectory</a></li></ul></li><li class="accordion collapsed child" id=749940><div class="accordion-heading child"><a href="InteractionHandler.html">InteractionHandler</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="InteractionHandler.html#.processInteraction">processInteraction</a></li></ul></li><li class="accordion collapsed child" id=259371><div class="accordion-heading child"><a href="LanguageHandler.html">LanguageHandler</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="LanguageHandler.html#.addLanguageFolder">addLanguageFolder</a></li><li data-type='method'><a href="LanguageHandler.html#.getCommandLocalisations">getCommandLocalisations</a></li><li data-type='method'><a href="LanguageHandler.html#.getCommandOptionLocalisations">getCommandOptionLocalisations</a></li><li data-type='method'><a href="LanguageHandler.html#.getLocalisation">getLocalisation</a></li><li data-type='method'><a href="LanguageHandler.html#.getLocalisationFromAPILocale">getLocalisationFromAPILocale</a></li><li data-type='method'><a href="LanguageHandler.html#.loadAllLanguages">loadAllLanguages</a></li><li data-type='method'><a href="LanguageHandler.html#.loadLanguageFile">loadLanguageFile</a></li></ul></li><li class="accordion collapsed child" id=4507637><div class="accordion-heading child"><a href="LoggingHandler.html">LoggingHandler</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="LoggingHandler.html#.createLogger">createLogger</a></li></ul></li><li class="accordion collapsed child" id=1137332><div class="accordion-heading child"><a href="Util.html">Util</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Util.html#.arrayToConsoleList">arrayToConsoleList</a></li><li data-type='method'><a href="Util.html#.ownerCheck">ownerCheck</a></li><li data-type='method'><a href="Util.html#.walk">walk</a></li></ul></li></ul> </div><div class="accordion collapsed" id="5708931" > <h3 class="accordion-heading">Global<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="global.html#Command">Command</a></li><li class="accordion-list" id=""><a href="global.html#CommandExecute">CommandExecute</a></li><li class="accordion-list" id=""><a href="global.html#CommandLocalisationObject">CommandLocalisationObject</a></li><li class="accordion-list" id=""><a href="global.html#CommandOption">CommandOption</a></li><li class="accordion-list" id=""><a href="global.html#CommandOptionChoice">CommandOptionChoice</a></li><li class="accordion-list" id=""><a href="global.html#CommandOptionLocalisationObject">CommandOptionLocalisationObject</a></li><li class="accordion-list" id=""><a href="global.html#CommandOptionType">CommandOptionType</a></li><li class="accordion-list" id=""><a href="global.html#CommandOptionTypes">CommandOptionTypes</a></li><li class="accordion-list" id=""><a href="global.html#CommandRole">CommandRole</a></li><li class="accordion-list" id=""><a href="global.html#CommandRoles">CommandRoles</a></li><li class="accordion-list" id=""><a href="global.html#CommandSettings">CommandSettings</a></li><li class="accordion-list" id=""><a href="global.html#CommandType">CommandType</a></li><li class="accordion-list" id=""><a href="global.html#CommandTypes">CommandTypes</a></li><li class="accordion-list" id=""><a href="global.html#Event">Event</a></li><li class="accordion-list" id=""><a href="global.html#EventDebounceSettingsObject">EventDebounceSettingsObject</a></li><li class="accordion-list" id=""><a href="global.html#EventSettingsObject">EventSettingsObject</a></li><li class="accordion-list" id=""><a href="global.html#ISOLangCode">ISOLangCode</a></li><li class="accordion-list" id=""><a href="global.html#Language">Language</a></li></ul> </div>
+      
+
+    </nav>
+    <div class="navbar-ham" id="navbar-ham">
+      <div>
+        <div class="first"></div>
+        <div class="second"></div>
+        <div class="third"></div>
+      </div>
+    </div>
+
+    <div id="main" class="main-content">
+      
+      <h1 id='page-title' class="page-title">
+        events/registerCommands.js
+      </h1>
+      
+
+      
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const { writeFileSync, readFileSync, existsSync, readdirSync, unlinkSync } = require("fs");
+const { generateStructure, commands } = require("../handlers/CommandHandler");
+const { info, error} = require("../handlers/LoggingHandler");
+const { getLocalisation: getText } = require("../handlers/LanguageHandler");
+const { join } = require("path");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v10");
+
+/** @type {import("../types").Event} */
+module.exports = {
+    name: "registerCommands",
+    event: "shardReady",
+    settings: {
+        debounce: {
+            time: 1000,
+            risingEdge: true
+        }
+    },
+    execute: async client => {
+        // check current command structure against last synced command structure
+        // global
+        if (!existsSync(join(__dirname, "../cache/globalStructure.json")) || readFileSync(join(__dirname, "../cache/globalStructure.json"), "utf-8") != JSON.stringify(generateStructure())) {
+            // commands have been updated, re-register them
+            const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
+            try {
+                info(getText(client.consoleLang, ["events", "registerCommands", "info", "registeringGlobalCommandStructure"]));
+                await rest.put(Routes.applicationCommands(client.user.id), { body: generateStructure() });
+                info(getText(client.consoleLang, ["events", "registerCommands", "info", "registeredGlobalCommandStructure"]));
+            } catch (e) {
+                error(getText(client.consoleLang, ["events", "registerCommands", "error", "cannotRegister"], e.stack));
+            }
+        }
+        // record current global command structure
+        writeFileSync(join(__dirname, "../cache/globalStructure.json"), JSON.stringify(generateStructure()), { flag: "w+", encoding: "utf-8" });
+
+        // guild
+        for (const guildID of [...new Set(commands.filter(x => x.guild).map(x => x.guild))]) {
+            if (!existsSync(join(__dirname, `../cache/structure-${guildID}.json`)) || readFileSync(join(__dirname, `../cache/structure-${guildID}.json`), "utf-8") != JSON.stringify(generateStructure(guildID))) {
+                // commands have been updated, re-register them
+                const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
+                try {
+                    info(getText(client.consoleLang, ["events", "registerCommands", "info", "registeringGuildCommandStructure"], guildID));
+                    await rest.put(Routes.applicationGuildCommands(client.user.id, guildID), { body: generateStructure(guildID) });
+                    info(getText(client.consoleLang, ["events", "registerCommands", "info", "registeredGuildCommandStructure"], guildID));
+                } catch (e) {
+                    error(getText(client.consoleLang, ["events", "registerCommands", "error", "cannotRegisterGuild"], guildID, e.stack));
+                }
+            }
+            // record current guild command structure
+            writeFileSync(join(__dirname, `../cache/structure-${guildID}.json`), JSON.stringify(generateStructure(guildID)), { flag: "w+", encoding: "utf-8" });
+        }
+        // check for guild structures that need to be deleted completely
+        let allGuildIDs = [...new Set(commands.filter(x => x.guild).map(x => x.guild))];
+        // generate regex for all guild ids
+        let guildPattern = new RegExp(`^structure-((?:${allGuildIDs.join(")|(?:")})).json$`, "g");
+        // go through all structure cache files
+        for (const fileName of readdirSync(join(__dirname, "../cache/")).filter(x => !x.includes("global"))) {
+            // if cache file contains guild that is no longer being used
+            if (!fileName.match(guildPattern)?.length) {
+                // unneeded commands
+                let guildID = /structure-([0-9]+)/g.exec(fileName)[1];
+                const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
+                try {
+                    info(getText(client.consoleLang, ["events", "registerCommands", "info", "registeringGuildCommandStructure"], guildID));
+                    await rest.put(Routes.applicationGuildCommands(client.user.id, guildID), { body: generateStructure(guildID) });
+                    // delete cache file
+                    unlinkSync(join(__dirname, `../cache/structure-${guildID}.json`));
+                    info(getText(client.consoleLang, ["events", "registerCommands", "info", "registeredGuildCommandStructure"], guildID));
+                } catch (e) {
+                    error(getText(client.consoleLang, ["events", "registerCommands", "error", "cannotRegisterGuild"], guildID, e.stack));
+                }
+            }
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+
+    <footer class="footer" id="footer">
+      
+    </footer>
+
+    <script src="scripts/third-party/prettify.js"></script>
+    <script src="scripts/third-party/lang-css.js"></script>
+    <script type="text/javascript" src="scripts/misc.js"></script>
+
+    <script>prettyPrint();</script>
+    <script src="scripts/linenumber.js"></script>
+    <script src="scripts/fix-code-block.js"></script>
+    <script src="scripts/fix-navbar.js"></script>
+    
+      <script src="scripts/search.js"></script>
+      <script src="scripts/third-party/fuse.js"></script>
+      <script>
+        var list = [{"title":"CommandHandler","link":"<a href=\"CommandHandler.html\">CommandHandler</a>"},{"title":"CommandHandler.addCommandDirectory","link":"<a href=\"CommandHandler.html#.addCommandDirectory\">CommandHandler &rtrif; addCommandDirectory</a>"},{"title":"CommandHandler.attachClient","link":"<a href=\"CommandHandler.html#.attachClient\">CommandHandler &rtrif; attachClient</a>"},{"title":"CommandHandler.generateStructure","link":"<a href=\"CommandHandler.html#.generateStructure\">CommandHandler &rtrif; generateStructure</a>"},{"title":"CommandHandler.getCommand","link":"<a href=\"CommandHandler.html#.getCommand\">CommandHandler &rtrif; getCommand</a>"},{"title":"CommandHandler.getGuildCommand","link":"<a href=\"CommandHandler.html#.getGuildCommand\">CommandHandler &rtrif; getGuildCommand</a>"},{"title":"CommandHandler.loadCommands","link":"<a href=\"CommandHandler.html#.loadCommands\">CommandHandler &rtrif; loadCommands</a>"},{"title":"CommandHandler.removeCommandDirectory","link":"<a href=\"CommandHandler.html#.removeCommandDirectory\">CommandHandler &rtrif; removeCommandDirectory</a>"},{"title":"DatabaseHandler","link":"<a href=\"DatabaseHandler.html\">DatabaseHandler</a>"},{"title":"DatabaseHandler.init","link":"<a href=\"DatabaseHandler.html#.init\">DatabaseHandler &rtrif; init</a>"},{"title":"DatabaseHandler.operation","link":"<a href=\"DatabaseHandler.html#.operation\">DatabaseHandler &rtrif; operation</a>"},{"title":"EventHandler","link":"<a href=\"EventHandler.html\">EventHandler</a>"},{"title":"EventHandler.addEventDirectory","link":"<a href=\"EventHandler.html#.addEventDirectory\">EventHandler &rtrif; addEventDirectory</a>"},{"title":"EventHandler.attachClient","link":"<a href=\"EventHandler.html#.attachClient\">EventHandler &rtrif; attachClient</a>"},{"title":"EventHandler.loadEvents","link":"<a href=\"EventHandler.html#.loadEvents\">EventHandler &rtrif; loadEvents</a>"},{"title":"EventHandler.removeEventDirectory","link":"<a href=\"EventHandler.html#.removeEventDirectory\">EventHandler &rtrif; removeEventDirectory</a>"},{"title":"InteractionHandler","link":"<a href=\"InteractionHandler.html\">InteractionHandler</a>"},{"title":"InteractionHandler.processInteraction","link":"<a href=\"InteractionHandler.html#.processInteraction\">InteractionHandler &rtrif; processInteraction</a>"},{"title":"LanguageHandler","link":"<a href=\"LanguageHandler.html\">LanguageHandler</a>"},{"title":"LanguageHandler.addLanguageFolder","link":"<a href=\"LanguageHandler.html#.addLanguageFolder\">LanguageHandler &rtrif; addLanguageFolder</a>"},{"title":"LanguageHandler.getCommandLocalisations","link":"<a href=\"LanguageHandler.html#.getCommandLocalisations\">LanguageHandler &rtrif; getCommandLocalisations</a>"},{"title":"LanguageHandler.getCommandOptionLocalisations","link":"<a href=\"LanguageHandler.html#.getCommandOptionLocalisations\">LanguageHandler &rtrif; getCommandOptionLocalisations</a>"},{"title":"LanguageHandler.getLocalisation","link":"<a href=\"LanguageHandler.html#.getLocalisation\">LanguageHandler &rtrif; getLocalisation</a>"},{"title":"LanguageHandler.getLocalisationFromAPILocale","link":"<a href=\"LanguageHandler.html#.getLocalisationFromAPILocale\">LanguageHandler &rtrif; getLocalisationFromAPILocale</a>"},{"title":"LanguageHandler.loadAllLanguages","link":"<a href=\"LanguageHandler.html#.loadAllLanguages\">LanguageHandler &rtrif; loadAllLanguages</a>"},{"title":"LanguageHandler.loadLanguageFile","link":"<a href=\"LanguageHandler.html#.loadLanguageFile\">LanguageHandler &rtrif; loadLanguageFile</a>"},{"title":"LoggingHandler","link":"<a href=\"LoggingHandler.html\">LoggingHandler</a>"},{"title":"LoggingHandler.createLogger","link":"<a href=\"LoggingHandler.html#.createLogger\">LoggingHandler &rtrif; createLogger</a>"},{"title":"Util","link":"<a href=\"Util.html\">Util</a>"},{"title":"Util.arrayToConsoleList","link":"<a href=\"Util.html#.arrayToConsoleList\">Util &rtrif; arrayToConsoleList</a>"},{"title":"Util.ownerCheck","link":"<a href=\"Util.html#.ownerCheck\">Util &rtrif; ownerCheck</a>"},{"title":"Util.walk","link":"<a href=\"Util.html#.walk\">Util &rtrif; walk</a>"},{"title":"Command","link":"<a href=\"global.html#Command\">Command</a>"},{"title":"CommandExecute","link":"<a href=\"global.html#CommandExecute\">CommandExecute</a>"},{"title":"CommandLocalisationObject","link":"<a href=\"global.html#CommandLocalisationObject\">CommandLocalisationObject</a>"},{"title":"CommandOption","link":"<a href=\"global.html#CommandOption\">CommandOption</a>"},{"title":"CommandOptionChoice","link":"<a href=\"global.html#CommandOptionChoice\">CommandOptionChoice</a>"},{"title":"CommandOptionLocalisationObject","link":"<a href=\"global.html#CommandOptionLocalisationObject\">CommandOptionLocalisationObject</a>"},{"title":"CommandOptionType","link":"<a href=\"global.html#CommandOptionType\">CommandOptionType</a>"},{"title":"CommandOptionTypes","link":"<a href=\"global.html#CommandOptionTypes\">CommandOptionTypes</a>"},{"title":"CommandRole","link":"<a href=\"global.html#CommandRole\">CommandRole</a>"},{"title":"CommandRoles","link":"<a href=\"global.html#CommandRoles\">CommandRoles</a>"},{"title":"CommandSettings","link":"<a href=\"global.html#CommandSettings\">CommandSettings</a>"},{"title":"CommandType","link":"<a href=\"global.html#CommandType\">CommandType</a>"},{"title":"CommandTypes","link":"<a href=\"global.html#CommandTypes\">CommandTypes</a>"},{"title":"Event","link":"<a href=\"global.html#Event\">Event</a>"},{"title":"EventDebounceSettingsObject","link":"<a href=\"global.html#EventDebounceSettingsObject\">EventDebounceSettingsObject</a>"},{"title":"EventSettingsObject","link":"<a href=\"global.html#EventSettingsObject\">EventSettingsObject</a>"},{"title":"ISOLangCode","link":"<a href=\"global.html#ISOLangCode\">ISOLangCode</a>"},{"title":"Language","link":"<a href=\"global.html#Language\">Language</a>"}];
+        var options = 
+          setupSearch(list, options)
+      </script>
+    
+
+    
+
+    
+
+    
+
+
+  </body>
+
+</html>
