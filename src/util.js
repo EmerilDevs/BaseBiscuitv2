@@ -39,7 +39,7 @@ class Util {
      * @returns {string} A list of the array's contents formatted to be printed to the console as a list.
      * @example
      * // Print a list of commands to the console.
-     * const { arrayToConsoleList } = require('./util/Util');
+     * 
      * console.log(arrayToConsoleList(["help", "ping"]));
      * // Would print:
      * // ├ help
@@ -47,6 +47,16 @@ class Util {
      */
     static arrayToConsoleList (array, prepend) {
         return array.map((x, i) => `${prepend || ""}${i + 1 == array.length ? "└ " : "├ "}${x.toString ? x.toString() : x}`).join("\n");
+    }
+
+    /**
+     * Check if a user is an owner.
+     * @param {Object} client The Discord client.
+     * @param {import("discord.js").Snowflake} user The user ID to check.
+     * @returns {Boolean} True/false depending on whether the user is a dev/owner.
+     */
+     static ownerCheck(client, user) {
+        return client.config.ownerIDs.includes(user);
     }
 }
 

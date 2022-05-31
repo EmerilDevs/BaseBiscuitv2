@@ -3,6 +3,7 @@
 meta.name=English, UK
 meta.author=TechnoBiscuit
 # Locale to identify as when communicating with the Discord API. (see https://discord.com/developers/docs/interactions/application-commands#localization for more information)
+# Remove this line if this language does not fit any of the locales listed by Discord.
 meta.apiLocale=en-GB
 
 --- CONSOLE ---
@@ -41,8 +42,13 @@ handlers.command.warn.noExecute=${0} has no execute yet does not have a subcomma
 handlers.command.warn.noName=${0} does not have a name property, and so will be ignored.
 handlers.command.warn.noSubcommands=${0} has no execute yet does not have any subcommands, and so will be ignored.
 handlers.command.warn.overlappingDirectories=Some command paths contain each other, and so some commands may be loaded more than once.
+--- DATABASE HANDLER ---
+handlers.database.debug.loading=Attempting to load database handler...
+handlers.database.error.noPath=No database path provided.
+handlers.database.error.notInitialised=Please initialise the DatabaseHandler (DatabaseHandler.init) before attempting to perform an operation.
+handlers.database.error.operationFailed=DB operation failed:\n${0}
+handlers.database.info.loaded=Loaded database handler!
 --- EVENT HANDLER ---
-# handlers.event
 handlers.event.debug.addDirAttempt=Attempting to add event directory: ${0}
 handlers.event.debug.addedDir=Added event directory: ${0}
 handlers.event.debug.loadedEvent=Loaded ${0}
@@ -62,6 +68,12 @@ handlers.event.warn.noEvent=${0} does not have an event property, and so will be
 handlers.event.warn.noExecute=${0} does not have an execute property, and so will be ignored.
 handlers.event.warn.noName=${0} does not have a name property. Whilst not essential, you may want to consider adding one to make debugging easier.
 handlers.event.warn.overlappingDirectories=Some event paths contain each other, and so some events may be loaded more than once.
+--- INTERACTION HANDLER ---
+handlers.interaction.error.executeFail=Something went *very* wrong there. Please report this to the devs:\n`${0}`
+handlers.interaction.message.guildsOnly=This command cannot be used in DMs.
+handlers.interaction.message.invalidCommand=This command doesn't exist. If you can still see this command in your slash command menu, please allow up to an hour for Discord to realise this command doesn't exist.
+handlers.interaction.message.noBotPermission=The bot needs the following permission to run this command: ${0}
+handlers.interaction.message.noUserPermission=You don't have permission to run this command.
 
 --- GENERIC MESSAGES ---
 # Debug
@@ -72,6 +84,14 @@ generic.errors.directory.invalid='${0}' is not a directory.
 generic.errors.path.doesNotExist='${0}' does not exist.
 generic.errors.path.notAbsolute='${0}' is not an absolute path.
 generic.errors.noClient=No client attached.
+# Log messages
+generic.logging.channel=Channel
+generic.logging.footer=bot go brrrrrrrrrRRRRRRRRRRRRRRRR
+generic.logging.genericError=something died
+generic.logging.messageError=Couldn't send error message in error message channel.
+generic.logging.server=Server
+generic.logging.tooLong=too long - check console
+generic.logging.user=User
 
 --- EVENTS ---
 # readyMessage

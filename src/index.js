@@ -50,6 +50,10 @@ client.eventHandler.attachClient(client);                          // attach the
 client.eventHandler.addEventDirectory(join(__dirname, "events"));  // set the event file location
 client.eventHandler.loadEvents();  // load events
 
+// load the database handler
+client.databaseHandler = require("./handlers/DatabaseHandler");
+client.databaseHandler.init(client, join(__dirname, "basebiscuitv2.sqlite"));  // attach client + setup
+
 process.on("uncaughtException", e => {
     try {
         client.logger.error(e);

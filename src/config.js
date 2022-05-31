@@ -18,7 +18,11 @@ const config = {
             }
         ],
         status: "idle"
-    }
+    },
+    errorChannel: "719633133976420416",
+    ownerIDs: [
+        "543125133208846366"
+    ]
 }
 
 module.exports = config;

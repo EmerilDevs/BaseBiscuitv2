@@ -8,6 +8,7 @@ const { existsSync, statSync, readdirSync } = require("fs");
 const { debug, warn, error, info } = require("./LoggingHandler");
 const { CommandTypes, CommandRoles, CommandOptionTypes } = require("../types");
 const { v4: uuidv4 } = require("uuid");
+const { arrayToConsoleList } = require("../util");
 
 /**
  * A class that handles loading, registering and running slash commands.
@@ -347,7 +348,7 @@ class CommandHandler {
                             // parent-child stuff
                             /** @type {import("../types").Command} */
                             let parent = toRegister.find(x => x.role == CommandRoles.SUBCOMMAND_CONTAINER && x.name == group);
-                            groupedSubcommand.parent == parent.id;
+                            groupedSubcommand.parent = parent.id;
                             if (!parent.children) parent.children = [];
                             parent.children.push(groupedSubcommand.id);
 
@@ -408,6 +409,65 @@ class CommandHandler {
         info(getText(CommandHandler.#client.consoleLang, ["handlers", "command", "info", "loadedCommands"]));
 
         return CommandHandler;
+    }
+
+    /**
+     * Get a global command from a path.
+     * @param  {...String} path The path of the command.
+     * @returns {import("../types").Command} The command.
+     */
+    static getCommand(...path) {
+        // return nothing if no path
+        if (!path.length) return;
+        let commandsToSearch = CommandHandler.commands.filter(x => !x.guild);
+        // find top level command
+        /** @type {import("../types").Command} */
+        let firstLevel = commandsToSearch.find(x => x.name == path[0] && (x.role == CommandRoles.COMMAND || x.role == CommandRoles.CONTAINER));
+        // return nothing if not found
+        if (!firstLevel) return;
+        // return if nothing else to search for
+        if (!path[1]) return firstLevel;
+        // else carry on searching
+        /** @type {import("../types").Command} */
+        let secondLevel = commandsToSearch.find(x => x.name == path[1] && x.parent == firstLevel.id);
+        // return nothing if not found
+        if (!secondLevel) return;
+        // return if nothing else to search for
+        if (!path[2]) return secondLevel;
+        // else carry on searching
+        /** @type {import("../types").Command} */
+        let thirdLevel = commandsToSearch.find(x => x.name == path[2] && x.parent == secondLevel.id);
+        return thirdLevel;
+    }
+
+    /**
+     * Get a guild specific command from a path.
+     * @param {string} guildID The guild's ID.
+     * @param  {...any} path The path of the command.
+     * @returns {import("../types").Command} The command.
+     */
+    static getGuildCommand(guildID, ...path) {
+        // return nothing if no path
+        if (!path.length) return;
+        let commandsToSearch = CommandHandler.commands.filter(x => x.guild == guildID);
+        // find top level command
+        /** @type {import("../types").Command} */
+        let firstLevel = commandsToSearch.find(x => x.name == path[0] && (x.role == CommandRoles.COMMAND || x.role == CommandRoles.CONTAINER));
+        // return nothing if not found
+        if (!firstLevel) return;
+        // return if nothing else to search for
+        if (!path[1]) return firstLevel;
+        // else carry on searching
+        /** @type {import("../types").Command} */
+        let secondLevel = commandsToSearch.find(x => x.name == path[1] && x.parent == firstLevel.id);
+        // return nothing if not found
+        if (!secondLevel) return;
+        // return if nothing else to search for
+        if (!path[2]) return secondLevel;
+        // else carry on searching
+        /** @type {import("../types").Command} */
+        let thirdLevel = commandsToSearch.find(x => x.name == path[2] && x.parent == secondLevel.id);
+        return thirdLevel;
     }
 
     /**

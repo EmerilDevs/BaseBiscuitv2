@@ -184,6 +184,25 @@ class LanguageHandler {
     }
 
     /**
+     * Get localised text with a locale defined by a Discord API locale..
+     * @param {String|import("discord.js").Interaction} locale The Discord API locale or Discord Interaction.
+     * @param {String[]} path An array containing the path to the localisation.
+     * @param  {...String=} replace Items to place within the localised text.
+     * @returns {String} The localised text.
+     * @static
+     * @example
+     * // Get a localised logging level name
+     * 
+     * let name = LanguageHandler.getLocalisationFromAPILocale(interaction, ["console", "logging", "debug"]);
+     * let otherName = LanguageHandler.getLocalisationFromAPILocale("en-GB", ["console", "logging", "debug"]);
+     */
+    static getLocalisationFromAPILocale(locale, path, ...replace) {
+        let localeToUse = typeof(locale) == "string" ? locale : locale.locale;
+        let languageID = Array.from(LanguageHandler.#languages).find(x => x[1].meta?.apiLocale == localeToUse)[0];
+        return LanguageHandler.getLocalisation(languageID, path, ...replace);
+    }
+
+    /**
      * Get the localisations of a command to provide to the Discord API.
      * @param {import("../types").Command} command The command to retrieve localisations for.
      * @returns {import("../types").CommandLocalisationObject} The command's localisations.

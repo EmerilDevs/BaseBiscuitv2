@@ -197,7 +197,7 @@ class EventHandler {
                 }
                 if (!execute) execute = event.execute;
                 // attach the listener
-                EventHandler.#client.on(event.event, (...args) => this.#eventEmitter.emit(event.event, EventHandler.#client, args));
+                EventHandler.#client.on(event.event, (...args) => this.#eventEmitter.emit(event.event, EventHandler.#client, ...args));
                 EventHandler.#eventEmitter.on(event.event, execute);
                 debug(getText(EventHandler.#client.consoleLang, ["handlers", "event", "debug", "loadedEvent"], event.name || event.filePath));
             }

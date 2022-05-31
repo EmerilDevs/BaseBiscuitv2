@@ -70,6 +70,11 @@ const CommandOptionTypes = {
  */
 
 /**
+ * @typedef {Object} CommandSettings
+ * @property {Boolean} [allowInDMs=false]
+ */
+
+/**
  * @typedef {Object} Command
  * @property {String} id
  * @property {String} name
@@ -83,6 +88,7 @@ const CommandOptionTypes = {
  * @property {String} [filePath]
  * @property {String} [parent]
  * @property {String[]} [children]
+ * @property {CommandSettings} [settings]
  */
 
 /**
