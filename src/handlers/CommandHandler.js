@@ -493,7 +493,7 @@ class CommandHandler {
             // set basic command info
             let toPush = new SlashCommandBuilder()
                 .setName(command.name)
-                .setDescription(command.name)
+                .setDescription(command.description)
                 .setNameLocalizations(getCommandLocalisations(command).name)
                 .setDescriptionLocalizations(getCommandLocalisations(command).description);
             // set options
