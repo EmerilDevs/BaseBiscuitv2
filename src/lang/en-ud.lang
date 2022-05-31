@@ -1,15 +1,103 @@
 --- META INFO ---
 # Language info
-meta.name=ɥsᴉlƃuƎ uʍop ǝpᴉsd∩
-meta.author=TechnoBiscuit
+meta.name=ʞ∩ 'ɥsᴉlƃuƎ uʍop ǝpᴉsd∩
+meta.author=ʇᴉnɔsᴉqouɥɔǝ┴
 
---- LOGGING ---
-# Levels
+--- CONSOLE ---
+# Logging levels
+console.logging.critical=lɐɔᴉʇᴉɹƆ
 console.logging.debug=ƃnqǝp
+console.logging.error=ɹoɹɹƎ
 console.logging.info=oɟuI
 console.logging.warn=uɹɐM
-console.logging.error=ɹoɹɹƎ
-console.logging.critical=lɐɔᴉʇᴉɹƆ
 # Messages
-console.logging.startMessage=˙${1} ʎq pǝpᴉʌoɹd uoᴉʇɐlsuɐɹʇ ɥʇᴉʍ ,${0}, ǝlɐɔol ƃuᴉs∩
 console.logging.loggerSetup=˙dnʇǝs ɹǝƃƃo˥
+console.logging.startMessage=˙${1} ʎq pǝpᴉʌoɹd uoᴉʇɐlsuɐɹʇ ɥʇᴉʍ ,${0}, ǝlɐɔol ƃuᴉs∩
+
+--- COMMAND HANDLER ---
+handlers.command.debug.addDirAttempt=${0} :ʎɹoʇɔǝɹᴉp puɐɯɯoɔ ppɐ oʇ ƃuᴉʇdɯǝʇʇ∀
+handlers.command.debug.addedDir=${0} :ʎɹoʇɔǝɹᴉp puɐɯɯoɔ pǝpp∀
+handlers.command.debug.loadedGroupDefinition=uoᴉʇᴉuᴉɟǝp dnoɹƃ puɐɯɯoɔqns pǝpɐo˥\t/${0} ${1}
+handlers.command.debug.loadedGroupedCommand=puɐɯɯoɔqns pǝdnoɹƃ pǝpɐo˥\t\t/${0} ${1} ${2}
+handlers.command.debug.loadedSubcommand=puɐɯɯoɔqns pǝpɐo˥\t\t\t/${0} ${1}
+handlers.command.debug.loadedTopLevelCommand=lǝʌǝl doʇ pǝpɐo˥\t\t\t/${0}
+handlers.command.debug.loadedTopLevelCommandGuild=lǝʌǝl doʇ pǝpɐo˥\t\t\t/${0} (${1})
+handlers.command.debug.loadingCommands=˙˙˙spuɐɯɯoɔ ƃuᴉpɐo˥
+handlers.command.debug.loadingFolderGlobal=˙spuɐɯɯoɔ lɐqolƃ ƃuᴉpɐo˥
+handlers.command.debug.loadingFolderGlobalAndGuild=˙spuɐɯɯoɔ ɔᴉɟᴉɔǝds plᴉnƃ puɐ lɐqolƃ ƃuᴉpɐo˥
+handlers.command.debug.loadingFolderGuild=˙spuɐɯɯoɔ ɔᴉɟᴉɔǝds plᴉnƃ ƃuᴉpɐo˥
+handlers.command.debug.loadingFromDirectory=${0} uᴉɥʇᴉʍ spuɐɯɯoɔ pɐol oʇ ƃuᴉʇdɯǝʇʇ∀
+handlers.command.debug.noCommandsFound=${0} uᴉɥʇᴉʍ punoɟ spuɐɯɯoɔ oN
+handlers.command.debug.removeDirAttempt=${0} :ʎɹoʇɔǝɹᴉp puɐɯɯoɔ ǝʌoɯǝɹ oʇ ƃuᴉʇdɯǝʇʇ∀
+handlers.command.debug.removedDir=${0} :ʎɹoʇɔǝɹᴉp puɐɯɯoɔ pǝʌoɯǝɹ
+handlers.command.error.cannotLoad=:${0} ƃuᴉpɐol ǝlᴉɥʍ ɹoɹɹƎ\n${1}
+handlers.command.info.loadedCommands=¡spuɐɯɯoɔ pǝpɐo˥
+handlers.command.warn.cannotFindGroup=˙pǝɹouƃᴉ ǝq llᴉʍ os puɐ 'punoɟ ǝq ʇou plnoɔ (${1}) dnoɹƃ pǝᴉɟᴉɔǝds s,${0}
+handlers.command.warn.folderIdentityCrisis=˙pǝɹouƃᴉ ǝq llᴉʍ ${1} os puɐ 'ʎɹoʇɔǝɹᴉp ɐ ʇou sᴉ ${0}
+handlers.command.warn.invalidRole=˙ǝɹnʇɔnɹʇs puɐɯɯoɔ ǝɥʇ uᴉ pǝpnlɔuᴉ ǝq ʇou llᴉʍ os puɐ '(${2}) ǝloɹ pᴉlɐʌuᴉ uɐ sɐɥ ${1} ${0}/
+handlers.command.warn.noExecute=˙pǝɹouƃᴉ ǝq llᴉʍ os puɐ 'ɹǝploɟ puɐɯɯoɔqns ɐ ǝʌɐɥ ʇou sǝop ʇǝʎ ǝʇnɔǝxǝ ou sɐɥ ${0}
+handlers.command.warn.noName=˙pǝɹouƃᴉ ǝq llᴉʍ os puɐ 'ʎʇɹǝdoɹd ǝɯɐu ɐ ǝʌɐɥ ʇou sǝop ${0}
+handlers.command.warn.noSubcommands=˙pǝɹouƃᴉ ǝq llᴉʍ os puɐ 'spuɐɯɯoɔqns ʎuɐ ǝʌɐɥ ʇou sǝop ʇǝʎ ǝʇnɔǝxǝ ou sɐɥ ${0}
+handlers.command.warn.overlappingDirectories=˙ǝɔuo uɐɥʇ ǝɹoɯ pǝpɐol ǝq ʎɐɯ spuɐɯɯoɔ ǝɯos os puɐ 'ɹǝɥʇo ɥɔɐǝ uᴉɐʇuoɔ sɥʇɐd puɐɯɯoɔ ǝɯoS
+--- DATABASE HANDLER ---
+handlers.database.debug.loading=˙˙˙ɹǝlpuɐɥ ǝsɐqɐʇɐp pɐol oʇ ƃuᴉʇdɯǝʇʇ∀
+handlers.database.error.noPath=˙pǝpᴉʌoɹd ɥʇɐd ǝsɐqɐʇɐp oN
+handlers.database.error.notInitialised=˙uoᴉʇɐɹǝdo uɐ ɯɹoɟɹǝd oʇ ƃuᴉʇdɯǝʇʇɐ ǝɹoɟǝq (ʇᴉuᴉ˙ɹǝlpuɐHǝsɐqɐʇɐp) ɹǝlpuɐHǝsɐqɐʇɐp ǝɥʇ ǝsᴉlɐᴉʇᴉuᴉ ǝsɐǝlԀ
+handlers.database.error.operationFailed=:pǝlᴉɐɟ uoᴉʇɐɹǝdo qp\n${0}
+handlers.database.info.loaded=¡ɹǝlpuɐɥ ǝsɐqɐʇɐp pǝpɐo˥
+--- EVENT HANDLER ---
+handlers.event.debug.addDirAttempt=${0} :ʎɹoʇɔǝɹᴉp ʇuǝʌǝ ppɐ oʇ ƃuᴉʇdɯǝʇʇ∀
+handlers.event.debug.addedDir=${0} :ʎɹoʇɔǝɹᴉp ʇuǝʌǝ pǝpp∀
+handlers.event.debug.loadedEvent=${0} pǝpɐo˥
+handlers.event.debug.loadingEvents=˙˙˙sʇuǝʌǝ ƃuᴉpɐo˥
+handlers.event.debug.loadingFromDirectory=${0} uᴉɥʇᴉʍ sʇuǝʌǝ pɐol oʇ ƃuᴉʇdɯǝʇʇ∀
+handlers.event.debug.noEventsFound=${0} uᴉɥʇᴉʍ punoɟ sʇuǝʌǝ oN
+handlers.event.debug.registeringEvent=˙˙˙ʇuǝʌǝ ${0} ƃuᴉɹǝʇsᴉƃǝɹ
+handlers.event.debug.registeringEvents=˙˙˙sʇuǝʌǝ ${0} ƃuᴉɹǝʇsᴉƃǝɹ
+handlers.event.debug.registeringSpecific=˙˙˙${0} ƃuᴉɹǝʇsᴉƃǝɹ
+handlers.event.debug.removedDir=${0} :ʎɹoʇɔǝɹᴉp ʇuǝʌǝ pǝʌoɯǝɹ
+handlers.event.debug.removedListeners=˙sɹǝuǝʇsᴉl ʇuǝʌǝ ƃuᴉʇsᴉxǝ llɐ pǝʌoɯǝɹ
+handlers.event.error.cannotLoad=:${0} ƃuᴉpɐol ǝlᴉɥʍ ɹoɹɹƎ\n${1}
+handlers.event.info.loadedEvents=¡sʇuǝʌǝ pǝpɐo˥
+handlers.event.warn.duplicateEvents=:pǝɹouƃᴉ ǝq llᴉʍ os puɐ ${0} ǝɯɐu ǝɥʇ ɥʇᴉʍ punoɟ ǝɹǝʍ sʇuǝʌǝ ǝldᴉʇlnW\n${1}
+handlers.event.warn.noDebounceTime=˙ʇɔǝɾqo ǝɔunoqǝp˙sƃuᴉʇʇǝs ǝɥʇ oʇ ʎʇɹǝdoɹd ǝɯᴉʇ ɐ ppɐ ǝsɐǝld 'ƃuᴉɔunoqǝp ǝsn oʇ ʇuǝʌǝ sᴉɥʇ ʇuɐʍ noʎ ɟI ˙ƃuᴉʇʇǝs ǝɯᴉʇ ɐ ǝʌɐɥ ʇ,usǝop ʇnq ǝɔunoqǝp ǝʌɐɥ oʇ dnʇǝs sᴉ ${0}
+handlers.event.warn.noEvent=˙pǝɹouƃᴉ ǝq llᴉʍ os puɐ 'ʎʇɹǝdoɹd ʇuǝʌǝ uɐ ǝʌɐɥ ʇou sǝop ${0}
+handlers.event.warn.noExecute=˙pǝɹouƃᴉ ǝq llᴉʍ os puɐ 'ʎʇɹǝdoɹd ǝʇnɔǝxǝ uɐ ǝʌɐɥ ʇou sǝop ${0}
+handlers.event.warn.noName=˙ɹǝᴉsɐǝ ƃuᴉƃƃnqǝp ǝʞɐɯ oʇ ǝuo ƃuᴉppɐ ɹǝpᴉsuoɔ oʇ ʇuɐʍ ʎɐɯ noʎ 'lɐᴉʇuǝssǝ ʇou ʇslᴉɥM ˙ʎʇɹǝdoɹd ǝɯɐu ɐ ǝʌɐɥ ʇou sǝop ${0}
+handlers.event.warn.overlappingDirectories=˙ǝɔuo uɐɥʇ ǝɹoɯ pǝpɐol ǝq ʎɐɯ sʇuǝʌǝ ǝɯos os puɐ 'ɹǝɥʇo ɥɔɐǝ uᴉɐʇuoɔ sɥʇɐd ʇuǝʌǝ ǝɯoS
+--- INTERACTION HANDLER ---
+handlers.interaction.error.executeFail=:sʌǝp ǝɥʇ oʇ sᴉɥʇ ʇɹodǝɹ ǝsɐǝlԀ ˙ǝɹǝɥʇ ƃuoɹʍ *ʎɹǝʌ* ʇuǝʍ ƃuᴉɥʇǝɯoS\n`${0}`
+handlers.interaction.message.guildsOnly=˙sWp uᴉ pǝsn ǝq ʇouuɐɔ puɐɯɯoɔ sᴉɥ┴
+handlers.interaction.message.invalidCommand=˙ʇsᴉxǝ ʇ,usǝop puɐɯɯoɔ sᴉɥʇ ǝsᴉlɐǝɹ oʇ pɹoɔsᴉp ɹoɟ ɹnoɥ uɐ oʇ dn ʍollɐ ǝsɐǝld 'nuǝɯ puɐɯɯoɔ ɥsɐls ɹnoʎ uᴉ puɐɯɯoɔ sᴉɥʇ ǝǝs llᴉʇs uɐɔ noʎ ɟI ˙ʇsᴉxǝ ʇ,usǝop puɐɯɯoɔ sᴉɥ┴
+handlers.interaction.message.noBotPermission=${0} :puɐɯɯoɔ sᴉɥʇ unɹ oʇ uoᴉssᴉɯɹǝd ƃuᴉʍolloɟ ǝɥʇ spǝǝu ʇoq ǝɥ┴
+handlers.interaction.message.noUserPermission=˙puɐɯɯoɔ sᴉɥʇ unɹ oʇ uoᴉssᴉɯɹǝd ǝʌɐɥ ʇ,uop no⅄
+
+--- GENERIC MESSAGES ---
+# Debug
+generic.debug.loading.inline=${0} :ƃuᴉpɐo˥
+generic.debug.loading.newLine=:ƃuᴉpɐo˥\n${0}
+# Error
+generic.errors.directory.invalid=˙ʎɹoʇɔǝɹᴉp ɐ ʇou sᴉ ,${0},
+generic.errors.path.doesNotExist=˙ʇsᴉxǝ ʇou sǝop ,${0},
+generic.errors.path.notAbsolute=˙ɥʇɐd ǝʇnlosqɐ uɐ ʇou sᴉ ,${0},
+generic.errors.noClient=˙pǝɥɔɐʇʇɐ ʇuǝᴉlɔ oN
+# Log messages
+generic.logging.channel=lǝuuɐɥƆ
+generic.logging.footer=ɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹɹq oƃ ʇoq
+generic.logging.genericError=pǝᴉp ƃuᴉɥʇǝɯos
+generic.logging.messageError=˙lǝuuɐɥɔ ǝƃɐssǝɯ ɹoɹɹǝ uᴉ ǝƃɐssǝɯ ɹoɹɹǝ puǝs ʇ,uplnoƆ
+generic.logging.server=ɹǝʌɹǝS
+generic.logging.tooLong=ǝlosuoɔ ʞɔǝɥɔ - ƃuol ooʇ
+generic.logging.user=ɹǝs∩
+
+--- EVENTS ---
+# readyMessage
+events.readyMessage.message=¡sɹǝsn ${3} ɥʇᴉʍ puɐ slǝuuɐɥɔ ${2} 'sɹǝʌɹǝs ${1} uᴉ ƃuᴉuunɹ ¡ǝuᴉluo ʍou sᴉ ${0}
+events.readyMessage.messageShard=¡sɹǝsn ${4} ɥʇᴉʍ puɐ slǝuuɐɥɔ ${3} 'sɹǝʌɹǝs ${2} uᴉ ƃuᴉuunɹ ¡ǝuᴉluo ʍou sᴉ (${1}\# pɹɐɥs) ${0}
+# registerCommands
+events.registerCommands.error.cannotRegister=:ǝɹnʇɔnɹʇs puɐɯɯoɔ ɹǝʇsᴉƃǝɹ ʇouuɐƆ\n${0}
+events.registerCommands.error.cannotRegisterGuild=:(${0}) ǝɹnʇɔnɹʇs puɐɯɯoɔ ɹǝʇsᴉƃǝɹ ʇouuɐƆ\n${1}
+events.registerCommands.info.registeredGlobalCommandStructure=¡ǝɹnʇɔnɹʇs puɐɯɯoɔ lɐqolƃ pǝɹǝʇsᴉƃǝɹ
+events.registerCommands.info.registeredGuildCommandStructure=(${0}) ¡ǝɹnʇɔnɹʇs puɐɯɯoɔ plᴉnƃ pǝɹǝʇsᴉƃǝɹ
+events.registerCommands.info.registeringGlobalCommandStructure=˙˙˙ǝɹnʇɔnɹʇs puɐɯɯoɔ lɐqolƃ ƃuᴉɹǝʇsᴉƃǝɹ
+events.registerCommands.info.registeringGuildCommandStructure=(${0}) ˙˙˙ǝɹnʇɔnɹʇs puɐɯɯoɔ plᴉnƃ ƃuᴉɹǝʇsᴉƃǝɹ

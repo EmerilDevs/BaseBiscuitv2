@@ -10,5 +10,8 @@ logs/
 # command structure cache
 src/cache/
 
+# database
+src/basebiscuitv2.sqlite
+
 # docs for now
 docs/

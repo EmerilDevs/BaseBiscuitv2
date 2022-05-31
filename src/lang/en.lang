@@ -104,11 +104,3 @@ events.registerCommands.info.registeredGlobalCommandStructure=Registered global 
 events.registerCommands.info.registeredGuildCommandStructure=Registered guild command structure! (${0})
 events.registerCommands.info.registeringGlobalCommandStructure=Registering global command structure...
 events.registerCommands.info.registeringGuildCommandStructure=Registering guild command structure... (${0})
-
---- COMMANDS ---
-commands.global.test.name=testbutlocalised
-commands.global.test.description=woo localised description
-commands.options.global.test.defaults.name=localisedtestname
-commands.options.global.test.defaults.description=localised test description
-
-commands.guild.specific.name=specificbutlocalised
