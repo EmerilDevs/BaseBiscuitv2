@@ -429,14 +429,14 @@ class CommandHandler {
         if (!path[1]) return firstLevel;
         // else carry on searching
         /** @type {import("../types").Command} */
-        let secondLevel = commandsToSearch.find(x => x.name == path[1] && x.parent == firstLevel.id);
+        let secondLevel = CommandHandler.commands.find(x => x.name == path[1] && x.parent == firstLevel.id);
         // return nothing if not found
         if (!secondLevel) return;
         // return if nothing else to search for
         if (!path[2]) return secondLevel;
         // else carry on searching
         /** @type {import("../types").Command} */
-        let thirdLevel = commandsToSearch.find(x => x.name == path[2] && x.parent == secondLevel.id);
+        let thirdLevel = CommandHandler.commands.find(x => x.name == path[2] && x.parent == secondLevel.id);
         return thirdLevel;
     }
 
@@ -449,24 +449,24 @@ class CommandHandler {
     static getGuildCommand(guildID, ...path) {
         // return nothing if no path
         if (!path.length) return;
-        let commandsToSearch = CommandHandler.commands.filter(x => x.guild == guildID);
+        let topLevelCommandsToSearch = CommandHandler.commands.filter(x => x.guild == guildID);
         // find top level command
         /** @type {import("../types").Command} */
-        let firstLevel = commandsToSearch.find(x => x.name == path[0] && (x.role == CommandRoles.COMMAND || x.role == CommandRoles.CONTAINER));
+        let firstLevel = topLevelCommandsToSearch.find(x => x.name == path[0] && (x.role == CommandRoles.COMMAND || x.role == CommandRoles.CONTAINER));
         // return nothing if not found
         if (!firstLevel) return;
         // return if nothing else to search for
         if (!path[1]) return firstLevel;
         // else carry on searching
         /** @type {import("../types").Command} */
-        let secondLevel = commandsToSearch.find(x => x.name == path[1] && x.parent == firstLevel.id);
+        let secondLevel = CommandHandler.commands.find(x => x.name == path[1] && x.parent == firstLevel.id);
         // return nothing if not found
         if (!secondLevel) return;
         // return if nothing else to search for
         if (!path[2]) return secondLevel;
         // else carry on searching
         /** @type {import("../types").Command} */
-        let thirdLevel = commandsToSearch.find(x => x.name == path[2] && x.parent == secondLevel.id);
+        let thirdLevel = CommandHandler.commands.find(x => x.name == path[2] && x.parent == secondLevel.id);
         return thirdLevel;
     }
 
