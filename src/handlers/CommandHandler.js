@@ -510,7 +510,7 @@ class CommandHandler {
                                 x => {
                                     x.setName(option.name)
                                     .setDescription(option.description)
-                                    .setRequired(option.required)
+                                    .setRequired(option.required || false)
                                     .setNameLocalizations(getCommandOptionLocalisations(command)[option.name]?.name || {})
                                     .setDescriptionLocalizations(getCommandOptionLocalisations(command)[option.name]?.description || {});
                                     if (option.choices?.length) x.setChoices(...option.choices);
@@ -521,7 +521,11 @@ class CommandHandler {
                         default:
                             toPush[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
                                 // actually add the option
-                                x => x.setName(option.name).setDescription(option.description).setRequired(option.required)
+                                x => x.setName(option.name)
+                                .setDescription(option.description)
+                                .setRequired(option.required || false)
+                                .setNameLocalizations(getCommandOptionLocalisations(command)[option.name]?.name || {})
+                                .setDescriptionLocalizations(getCommandOptionLocalisations(command)[option.name]?.description || {})
                             );
                     }
                 });
@@ -556,7 +560,7 @@ class CommandHandler {
                                                 x => {
                                                     x.setName(option.name)
                                                     .setDescription(option.description)
-                                                    .setRequired(option.required)
+                                                    .setRequired(option.required || false)
                                                     .setNameLocalizations(getCommandOptionLocalisations(child)[option.name]?.name || {})
                                                     .setDescriptionLocalizations(getCommandOptionLocalisations(child)[option.name]?.description || {});
                                                     if (option.choices?.length) x.setChoices(...option.choices);
@@ -567,7 +571,11 @@ class CommandHandler {
                                         default:
                                             subcommand[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
                                                 // actually add the option
-                                                x => x.setName(option.name).setDescription(option.description).setRequired(option.required)
+                                                x => x.setName(option.name)
+                                                .setDescription(option.description)
+                                                .setRequired(option.required || false)
+                                                .setNameLocalizations(getCommandOptionLocalisations(child)[option.name]?.name || {})
+                                                .setDescriptionLocalizations(getCommandOptionLocalisations(child)[option.name]?.description || {})
                                             );
                                     }
                                 });
@@ -609,7 +617,7 @@ class CommandHandler {
                                                 x => {
                                                     x.setName(option.name)
                                                     .setDescription(option.description)
-                                                    .setRequired(option.required)
+                                                    .setRequired(option.required || false)
                                                     .setNameLocalizations(getCommandOptionLocalisations(childChild)[option.name]?.name || {})
                                                     .setDescriptionLocalizations(getCommandOptionLocalisations(childChild)[option.name]?.description || {});
                                                     if (option.choices?.length) x.setChoices(...option.choices);
@@ -620,7 +628,11 @@ class CommandHandler {
                                         default:
                                             subcommand[`add${Object.keys(CommandOptionTypes)[option.type].charAt(0) + Object.keys(CommandOptionTypes)[option.type].slice(1).toLowerCase()}Option`](
                                                 // actually add the option
-                                                x => x.setName(option.name).setDescription(option.description).setRequired(option.required)
+                                                x => x.setName(option.name)
+                                                .setDescription(option.description)
+                                                .setRequired(option.required || false)
+                                                .setNameLocalizations(getCommandOptionLocalisations(childChild)[option.name]?.name || {})
+                                                .setDescriptionLocalizations(getCommandOptionLocalisations(childChild)[option.name]?.description || {})
                                             );
                                     }
                                     });
