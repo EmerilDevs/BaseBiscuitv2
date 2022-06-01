@@ -17,11 +17,11 @@ const config = {
                 name: "at being a functional bot"
             }
         ],
-        status: "idle"
+        status: "online"
     },
-    errorChannel: "719633133976420416",
+    errorChannel: "123456789098765432",
     ownerIDs: [
-        "543125133208846366"
+        
     ]
 }
 

@@ -19,8 +19,6 @@ module.exports = {
         } else {
             info(getText(client.consoleLang, ["events", "readyMessage", "message"], client.pkg.name, client.guilds?.cache?.size, client.channels?.cache?.size, client.guilds?.cache?.map(x => x?.memberCount).reduce((a, c) => a += c)));
         }
-        client.user.setPresence(client.config.presence);
-
-        
+        client.user.setPresence(client.config.presence); 
     }
 }
