@@ -28,7 +28,7 @@ BaseBiscuitv2 is the second version of a Discord bot "base" off of which other D
    ```
 4. Choose settings in `src/config.js`:
     - Set `clientSettings.intents` to whichever set of Intents your bot requires.
-    - Set `handlerSettings.logging.language` to the ISO 639-1 code of whichever language you want to log data in. (`en` is currently the only language supported, translations will be made available in the future)
+    - Set `handlerSettings.logging.language` to the ISO 639-1 code of whichever language you want to log data in. (`en` is currently the only language supported, translations ~will~ *might* be made available in the future)
     - Set `presence` to whatever you want your bot's presence to be. (see [here](https://discord.js.org/#/docs/discord.js/stable/typedef/PresenceData) for more information)
     - Set `errorChannel` to the ID of a channel to send error information to.
     - Add your Discord user ID to `ownerIDs` to pass all user permission checks.
