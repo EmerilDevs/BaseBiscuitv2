@@ -1,3 +1,7 @@
+# THIS REPOSITORY IS ARCHIVED AS OF 20/08/24
+
+The code here is very outdated and isn't supported, so you probably shouldn't try to make a bot with it.
+
 <h1 align="center"><img src="https://technob1scuit.github.io/webstuff/lgRed.png" width="25px"> BaseBiscuitv2</h1>
 
 <div align="center">
